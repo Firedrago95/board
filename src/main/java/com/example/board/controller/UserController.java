@@ -15,9 +15,9 @@ public class UserController {
 
     @PostMapping("/userReg")
     public String userReg(
-        @RequestParam("name") String name,
-        @RequestParam("email") String email,
-        @RequestParam("password") String password
+            @RequestParam("name") String name,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password
     ) {
         System.out.println("name = " + name);
         System.out.println("email = " + email);
@@ -28,5 +28,10 @@ public class UserController {
     @GetMapping("/welcome")
     public String welcome() {
         return "welcome";
+    }
+
+    @GetMapping("/loginform")
+    public String loginForm() {
+        return "loginForm";
     }
 }
