@@ -34,4 +34,16 @@ public class UserController {
     public String loginForm() {
         return "loginForm";
     }
+
+    @PostMapping("/login")
+    public String login(
+            @RequestParam("email") String email,
+            @RequestParam("password") String password
+    ) {
+        // email 정보를 읽어온 후
+        // 아이디 암호가 맞다면 세션에 회원정보를 저장한다.
+        System.out.println("email = " + email);
+        System.out.println("password = " + password);
+        return "redirect:/";
+    }
 }
