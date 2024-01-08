@@ -10,8 +10,11 @@ public class BoardController {
     // 게시물 목록 보여준다.
     // 컨트롤러 메소드가 리턴하는 문자열은 템플릿 이름이다.
     // http://localhost:8080/ ---> "list" 라는 템플릿을 사용(forward)하여 화면에 출력
+    // list를 리턴한다는 것은 classpath:/templtes/list.html 을 사용한다는 것이다.
     @GetMapping("/")
     public String list() {
         return "list";
     }
+
+
 }
