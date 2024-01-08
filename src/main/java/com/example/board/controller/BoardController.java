@@ -2,6 +2,7 @@ package com.example.board.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //HTTP 요청 받아서 응답을 하는 컴포넌트. 스프링 부트가 자동으로 빈 생성한다.
 @Controller
@@ -16,5 +17,11 @@ public class BoardController {
         return "list";
     }
 
-
+    @GetMapping("/board")
+    public String board(
+            @RequestParam("id") int id
+    ) {
+        System.out.println("id = " + id);
+        return "board";
+    }
 }
