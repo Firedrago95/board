@@ -62,4 +62,10 @@ public class UserController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.removeAttribute("loginInfo");
+        return "redirect:/";
+    }
 }
