@@ -27,10 +27,10 @@ public class UserDao {
     }
 
     @Transactional
-    public User addUser(String email, String name, String password) {
+    public User addUser(String name, String email, String password) {
         User user = new User();
-        user.setEmail(email);
         user.setName(name);
+        user.setEmail(email);
         user.setPassword(password);
         user.setRegdate(LocalDateTime.now());
         SqlParameterSource params = new BeanPropertySqlParameterSource(user);

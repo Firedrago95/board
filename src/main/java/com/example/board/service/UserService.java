@@ -13,8 +13,8 @@ public class UserService {
     private final UserDao userDao;
 
     @Transactional
-    public User addUser(String email, String name, String password) {
-        User user = userDao.addUser(email, name, password);
+    public User addUser(String name, String email, String password) {
+        User user = userDao.addUser(name, email, password);
         userDao.mappingUserRole(user.getUserId());
         return user;
     }

@@ -20,11 +20,11 @@ public class UserController {
 
     @PostMapping("/userReg")
     public String userReg(
-            @RequestParam("email") String email,
             @RequestParam("name") String name,
+            @RequestParam("email") String email,
             @RequestParam("password") String password
     ) {
-        userService.addUser(email, name, password);
+        userService.addUser(name, email, password);
 
         return "redirect:/welcome.html";
     }
