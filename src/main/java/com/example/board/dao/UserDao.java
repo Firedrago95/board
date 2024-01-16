@@ -1,6 +1,8 @@
 package com.example.board.dao;
 
 import com.example.board.dto.User;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
 
 // 스프링이 관리하는 Bean
 @Repository
@@ -34,7 +37,7 @@ public class UserDao {
         user.setName(name); // name 칼럼.
         user.setEmail(email); // email
         user.setPassword(password); // password
-        user.setRegdate(new java.util.Date().toString()); // regdate
+        user.setRegdate(LocalDateTime.now()); // regdate
         SqlParameterSource params = new BeanPropertySqlParameterSource(user);
         Number number = insertUser.executeAndReturnKey(params); // insert를 실행하고, 자동으로 생성된 id 가져온다.
         int userId = number.intValue();
@@ -48,6 +51,15 @@ public class UserDao {
         String sql = "insert into user_role(user_id, role_id) values(:userId, 1)";
         SqlParameterSource params = new MapSqlParameterSource("userId", userId);
         jdbcTemplate.update(sql, params);
+    }
+
+    @Transactional
+    public User getUser(String email) {
+        String sql = "select user_id, email, name, password, regdate from user where email = :email";
+        SqlParameterSource params = new MapSqlParameterSource("email", email);
+        RowMapper<User> rowmapper = new BeanPropertyRowMapper<>(User.class);
+        User user = jdbcTemplate.queryForObject(sql, params, rowmapper);
+        return user;
     }
 }
  /*

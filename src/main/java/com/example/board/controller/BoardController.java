@@ -1,6 +1,9 @@
 package com.example.board.controller;
 
+import com.example.board.dto.LoginInfo;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +17,10 @@ public class BoardController {
     // http://localhost:8080/ ---> "list" 라는 템플릿을 사용(forward)하여 화면에 출력
     // list를 리턴한다는 것은 classpath:/templtes/list.html 을 사용한다는 것이다.
     @GetMapping("/")
-    public String list() {
+    public String list(HttpSession session, Model model) {
         // 게시물 목록을 읽어온다. 페이징 처리한다.
+        LoginInfo loginInfo = (LoginInfo) session.getAttribute("loginInfo");
+        model.addAttribute("loginInfo", loginInfo);
         return "list";
     }
 
