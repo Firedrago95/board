@@ -2,6 +2,7 @@ package com.example.board.dao;
 
 import com.example.board.dto.User;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -44,6 +45,9 @@ public class UserDao {
     @Transactional
     public void mappingUserRole(int userId) {
         // insert into user_role(user_id, role_id) values(?, 1);
+        String sql = "insert into user_role(user_id, role_id) values(:userId, 1)";
+        SqlParameterSource params = new MapSqlParameterSource("userId", userId);
+        jdbcTemplate.update(sql, params);
     }
 }
  /*
