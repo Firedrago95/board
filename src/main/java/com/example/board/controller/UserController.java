@@ -20,9 +20,9 @@ public class UserController {
 
     @PostMapping("/userReg")
     public String userReg(
-            @RequestParam String email,
-            @RequestParam String name,
-            @RequestParam String password
+            @RequestParam("email") String email,
+            @RequestParam("name") String name,
+            @RequestParam("password") String password
     ) {
         userService.addUser(email, name, password);
 
@@ -32,5 +32,10 @@ public class UserController {
     @GetMapping("/welcome.html")
     public String welcome() {
         return "welcome";
+    }
+
+    @GetMapping("/loginform")
+    public String loginForm(){
+        return "loginForm";
     }
 }
