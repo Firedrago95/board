@@ -22,6 +22,10 @@ public class UserController {
         System.out.println("name = " + name);
         System.out.println("email = " + email);
         System.out.println("password = " + password);
+
+        // 어떤 기능이 필요한지 미리 알 수 있다.
+        // 회원정보를 저장한다.
+
         return "redirect:/welcome"; // 브라우저에게 자동으로 http://localhost:8080/welcome 으로 이동
     }
 
