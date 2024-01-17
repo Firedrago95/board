@@ -54,6 +54,7 @@ public class UserController {
                 System.out.println("암호가 같습니다.");
                 LoginInfo loginInfo = new LoginInfo(user.getUserId(), user.getName(), user.getEmail());
                 httpSession.setAttribute("loginInfo", loginInfo);
+                System.out.println("loginInfo = " + loginInfo);
             } else {
                 throw new RuntimeException("암호가 일치하지 않음.");
             }
