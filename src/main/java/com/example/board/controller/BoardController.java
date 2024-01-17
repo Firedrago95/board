@@ -1,5 +1,6 @@
 package com.example.board.controller;
 
+import com.example.board.dto.Board;
 import com.example.board.dto.LoginInfo;
 import com.example.board.service.BoardService;
 import jakarta.servlet.http.HttpSession;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 //HTTP 요청 받아서 응답을 하는 컴포넌트. 스프링 부트가 자동으로 빈 생성한다.
 @Controller
@@ -26,6 +29,23 @@ public class BoardController {
         // 게시물 목록을 읽어온다. 페이징 처리한다.
         LoginInfo loginInfo = (LoginInfo) session.getAttribute("loginInfo");
         model.addAttribute("loginInfo", loginInfo);
+
+        int page = 1;
+        int totalCount = boardService.getTotalCount(); // 11
+        List<Board> list = boardService.getBoards(page); // page가 1,2,3,4...
+        int pageCount = totalCount / 10; // 1
+        if (totalCount % 10 > 0) {
+            pageCount++;
+        }
+        int currentPage = page;
+//        System.out.println("totalCount = " + totalCount);
+//        for(Board board : list) {
+//            System.out.println(board);
+//        }
+        model.addAttribute("list", list);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("currentPage", currentPage);
+
         return "list";
     }
 
