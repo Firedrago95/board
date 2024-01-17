@@ -11,6 +11,7 @@ public class Board {
     private int boardId;
     private String title;
     private String content;
+    private String name; // join을 위한 컬럼 추가
     private int userId;
     private LocalDateTime regdate;
     private int ViewCnt;
