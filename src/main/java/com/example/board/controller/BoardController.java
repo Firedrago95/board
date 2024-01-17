@@ -40,9 +40,15 @@ public class BoardController {
     // 수정한다. 관리자는 모든 글을 수정할 수 있다.
 
     @GetMapping("/writeForm")
-    public String writeForm() {
+    public String writeForm(HttpSession session, Model model) {
         // 로그인한 사용자만 글을 써야한다.
         // 세션에서 로그인 정보를 읽어들인다. 로그인 하지 않으면 리스트로 이동시킨다.
+        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
+        if(loginInfo == null) { // 세션에 로그인 정보가 없으면 /loginform으로 redirect
+            return "redirect:/loginform";
+        }
+
+        model.addAttribute("loginInfo",loginInfo);
         return "writeForm";
     }
 
