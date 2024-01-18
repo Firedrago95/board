@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>상세보기</title>
+</head>
+<body>
+    <h1>게시물 상세보기</h1>
+    <div>글쓴이 : <span th:text="${board.name}"></span></div>
+    <div>조회수 : <span th:text="${board.viewCnt}"></span></div>
+    <div>작성일 : <span th:text="${board.regdate}"></span></div>
+    <div>내용 : <span th:text="${board.content}"></span></div>
+</body>
+</html>

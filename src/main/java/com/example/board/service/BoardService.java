@@ -28,4 +28,11 @@ public class BoardService {
     public List<Board> getBoards(int page) {
         return boardDao.getBoards(page);
     }
+
+    @Transactional
+    public Board getBoard(int boardId) {
+        Board board = boardDao.getBoard(boardId);
+        boardDao.increaseViewCnt(boardId);
+        return board;
+    }
 }

@@ -55,4 +55,17 @@ public class BoardDao {
         RowMapper<Board> rowMapper = new BeanPropertyRowMapper<>(Board.class);
         return jdbcTemplate.query(sql, Map.of("start",start),rowMapper);
     }
+
+    @Transactional(readOnly = true)
+    public Board getBoard(int boardId) {
+        String sql = "select b.user_id, b.board_id, b.title, b.regdate, b.view_cnt, u.name, b.content from board b, user u where b.user_id = u.user_id AND board_id = :boardId";
+        RowMapper<Board> rowMapper = new BeanPropertyRowMapper<>(Board.class);
+        return jdbcTemplate.queryForObject(sql, Map.of("boardId", boardId), rowMapper);
+    }
+
+    @Transactional
+    public void increaseViewCnt(int boardId) {
+        String sql = "UPDATE board SET view_cnt = view_cnt + 1 WHERE board_id = :boardId";
+        jdbcTemplate.update(sql, Map.of("boardId", boardId));
+    }
 }

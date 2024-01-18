@@ -63,4 +63,12 @@ public class BoardController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/board")
+    public String board(@RequestParam("boardId") int boardId,
+                        Model model) {
+        Board board = boardService.getBoard(boardId);
+        model.addAttribute("board", board);
+        return "board";
+    }
 }
