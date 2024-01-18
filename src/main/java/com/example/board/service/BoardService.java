@@ -28,4 +28,13 @@ public class BoardService {
     public List<Board> getBoards(int page) {
         return boardDao.getBoards(page);
     }
+
+    @Transactional
+    public Board getBoard(int boardId) {
+        // id에 해당하는 게시물을 읽어온다.
+        // id에 해당하는 게시물의 조회수도 1증가한다.
+        Board board = boardDao.getBoard(boardId);
+        boardDao.updateViewCnt(boardId);
+        return board;
+    }
 }

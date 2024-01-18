@@ -51,13 +51,16 @@ public class BoardController {
 
     @GetMapping("/board")
     public String board(
-            @RequestParam("id") int id
+            @RequestParam("boardId") int boardId,
+            Model model
     ) {
-        System.out.println("id = " + id);
+        System.out.println("boardId = " + boardId);
 
         // id에 해당하는 게시물을 읽어온다.
         // id에 해당하는 게시물의 조회수도 1증가한다.
 
+        Board board = boardService.getBoard(boardId);
+        model.addAttribute("board", board);
         return "board";
     }
 
