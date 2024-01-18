@@ -99,4 +99,16 @@ public class BoardController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("boardId") int boardId,
+                         HttpSession session) {
+        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
+        if(loginInfo == null) {return "redirect:/loginform";}
+
+        // loginInfo.getUserId() 사용자가 쓴 글일 경우에만 삭제한다.
+        boardService.deleteBoard(loginInfo.getUserId(), boardId);
+
+        return "redirect:/";
+    }
 }
