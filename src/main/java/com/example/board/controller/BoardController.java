@@ -25,12 +25,12 @@ public class BoardController {
     // http://localhost:8080/ ---> "list" 라는 템플릿을 사용(forward)하여 화면에 출력
     // list를 리턴한다는 것은 classpath:/templtes/list.html 을 사용한다는 것이다.
     @GetMapping("/")
-    public String list(HttpSession session, Model model) {
+    public String list(@RequestParam(name = "page", defaultValue = "1") int page,
+                       HttpSession session, Model model) {
         // 게시물 목록을 읽어온다. 페이징 처리한다.
         LoginInfo loginInfo = (LoginInfo) session.getAttribute("loginInfo");
         model.addAttribute("loginInfo", loginInfo);
 
-        int page = 1;
         int totalCount = boardService.getTotalCount(); // 11
         List<Board> list = boardService.getBoards(page); // page가 1,2,3,4...
         int pageCount = totalCount / 10; // 1
