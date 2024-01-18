@@ -188,3 +188,10 @@ section.board {
     width: 1px;
     height: 1px;
 }
+.write {
+    margin: 0 auto;
+}
+.paging {
+    margin: 0 auto;
+    text-align: center;
+}

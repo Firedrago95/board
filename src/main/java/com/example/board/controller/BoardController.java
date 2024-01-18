@@ -20,11 +20,13 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/")
-    public String list(HttpSession session, Model model) {
+    public String list(
+            HttpSession session,
+            Model model,
+            @RequestParam(name = "page", defaultValue = "1") int page) {
         LoginInfo loginInfo = (LoginInfo) session.getAttribute("loginInfo");
         model.addAttribute("loginInfo", loginInfo);
 
-        int page = 1;
         int totalCount = boardService.getTotalCount();
         List<Board> list = boardService.getBoards(page);
         int pageCount = totalCount / 10;
