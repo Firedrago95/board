@@ -14,6 +14,9 @@ public class UserService {
 
     @Transactional
     public User addUser(String name, String email, String password) {
+        User user1 = userDao.getUser(email);
+        if (user1 != null) {throw new RuntimeException("가입된 이메일이 있습니다.");}
+
         User user = userDao.addUser(name, email, password);
         userDao.mappingUserRole(user.getUserId());
         return user;
@@ -21,6 +24,7 @@ public class UserService {
 
     @Transactional
     public User getUser(String email) {
-        return userDao.getUser(email);
+        User user = userDao.getUser(email);
+        return user;
     }
 }

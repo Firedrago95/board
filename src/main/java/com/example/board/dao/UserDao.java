@@ -51,9 +51,13 @@ public class UserDao {
 
     @Transactional
     public User getUser(String email) {
-        String sql = "select user_id, email, name, password, regdate from user where email = :email";
-        SqlParameterSource params = new MapSqlParameterSource("email", email);
-        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
-        return jdbcTemplate.queryForObject(sql, params, rowMapper);
+        try {
+            String sql = "select user_id, email, name, password, regdate from user where email = :email";
+            SqlParameterSource params = new MapSqlParameterSource("email", email);
+            RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+            return jdbcTemplate.queryForObject(sql, params, rowMapper);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
