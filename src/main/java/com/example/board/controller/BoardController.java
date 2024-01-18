@@ -66,9 +66,22 @@ public class BoardController {
 
     @GetMapping("/board")
     public String board(@RequestParam("boardId") int boardId,
-                        Model model) {
+                        Model model,
+                        HttpSession session) {
+        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
         Board board = boardService.getBoard(boardId);
         model.addAttribute("board", board);
+        model.addAttribute("loginInfo", loginInfo);
         return "board";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("boardId") int boardId,
+                         HttpSession session) {
+        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
+        if (loginInfo == null) {return "redirect:/loginform";}
+
+        boardService.deleteBoard(loginInfo.getUserId(), boardId);
+        return "redirect:/";
     }
 }

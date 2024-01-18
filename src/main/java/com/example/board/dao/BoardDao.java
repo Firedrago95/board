@@ -68,4 +68,10 @@ public class BoardDao {
         String sql = "UPDATE board SET view_cnt = view_cnt + 1 WHERE board_id = :boardId";
         jdbcTemplate.update(sql, Map.of("boardId", boardId));
     }
+
+    @Transactional
+    public void deleteBoard(int boardId) {
+        String sql = "delete from board where board_id = :boardId";
+        jdbcTemplate.update(sql, Map.of("boardId", boardId));
+    }
 }
