@@ -33,8 +33,16 @@ public class BoardService {
     public Board getBoard(int boardId) {
         // id에 해당하는 게시물을 읽어온다.
         // id에 해당하는 게시물의 조회수도 1증가한다.
+        return getBoard(boardId, true);
+    }
+
+    // updateViewCnt = true 면 조회수 증가, false 면 증가하지 않음
+    @Transactional
+    public Board getBoard(int boardId, boolean updateViewCnt) {
         Board board = boardDao.getBoard(boardId);
-        boardDao.updateViewCnt(boardId);
+        if (updateViewCnt) {
+            boardDao.updateViewCnt(boardId);
+        }
         return board;
     }
 
@@ -44,5 +52,10 @@ public class BoardService {
         if (board.getUserId() == userId) {
             boardDao.deleteBoard(boardId);
         }
+    }
+
+    @Transactional
+    public void updateBoard(int boardId, String title, String content) {
+        boardDao.updateBoard(boardId, title, content);
     }
 }

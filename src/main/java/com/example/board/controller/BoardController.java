@@ -111,4 +111,37 @@ public class BoardController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/updateform")
+    public String updateForm(@RequestParam("boardId") int boardId,
+                             Model model,
+                             HttpSession session) {
+        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
+        if(loginInfo == null) {return "redirect:/loginform";}
+
+        // boardId 정보를 읽어와서 updatefform 템플릿에게 전달한다.
+        Board board = boardService.getBoard(boardId, false);
+        model.addAttribute("board", board);
+        model.addAttribute("loginInfo", loginInfo);
+        return "updateform";
+    }
+
+    @PostMapping("/update")
+    public String update(@RequestParam("boardId")int boardId,
+                         @RequestParam("title")String title,
+                         @RequestParam("content")String content,
+                         HttpSession session) {
+        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
+        if(loginInfo == null) {return "redirect:/loginform";}
+
+        Board board = boardService.getBoard(boardId, false);
+        if (board.getUserId() != loginInfo.getUserId()) {
+            return "redirect:/board?boardId" + boardId; // 본인 아닐경우 글 상세보기로
+        }
+
+        // boardId에 해당하는 글의 제목과 내용을 수정한다.
+        boardService.updateBoard(boardId, title, content);
+
+        return "redirect:/board?boardId=" + boardId; // 수정한 글로 리다이렉트한다.
+    }
 }
