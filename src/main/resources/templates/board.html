@@ -7,12 +7,13 @@
 <body>
     <h1>게시물 상세보기</h1>
     <div>글쓴이 : <span th:text="${board.name}"></span></div>
+    <div>제목 : <span th:text="${board.title}"></span></div>
     <div>조회수 : <span th:text="${board.viewCnt}"></span></div>
     <div>작성일 : <span th:text="${board.regdate}"></span></div>
     <div>내용 : <span th:text="${board.content}"></span></div>
 
     <div><a href="/">글 목록</a></div>
-    <div th:if="${loginInfo != null}"><a href="/">수정하기</a></div>
+    <div th:if="${loginInfo != null}"><a th:href="@{/updateform(boardId = ${board.boardId})}">수정하기</a></div>
     <div th:if="${loginInfo != null}"><a th:href="@{/delete(boardId = ${board.boardId})}">삭제하기</a></div>
 </body>
 </html>
