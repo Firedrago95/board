@@ -81,7 +81,12 @@ public class BoardController {
         LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
         if (loginInfo == null) {return "redirect:/loginform";}
 
-        boardService.deleteBoard(loginInfo.getUserId(), boardId);
+        if (loginInfo.getRoles().contains("ROLE_ADMIN")) {
+            boardService.deleteBoard(boardId);
+        } else {
+            boardService.deleteBoard(loginInfo.getUserId(), boardId);
+        }
+
         return "redirect:/";
     }
 

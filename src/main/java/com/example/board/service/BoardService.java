@@ -55,4 +55,9 @@ public class BoardService {
     public void updateBoard(int boardId, String title, String content) {
         boardDao.updateBoard(boardId, title, content);
     }
+
+    @Transactional
+    public void deleteBoard(int boardId) {
+        boardDao.deleteBoard(boardId);
+    }
 }

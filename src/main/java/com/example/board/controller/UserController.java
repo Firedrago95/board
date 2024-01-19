@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -53,6 +55,10 @@ public class UserController {
             if (user.getPassword().equals(password)) {
                 System.out.println("암호가 같습니다.");
                 LoginInfo loginInfo = new LoginInfo(user.getUserId(), user.getName(), user.getEmail());
+
+                List<String> roles = userService.getRoles(user.getUserId());
+                loginInfo.setRoles(roles);
+
                 httpSession.setAttribute("loginInfo", loginInfo);
                 System.out.println("loginInfo = " + loginInfo);
             } else {

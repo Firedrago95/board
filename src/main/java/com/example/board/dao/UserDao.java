@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserDao {
@@ -59,5 +61,13 @@ public class UserDao {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<String> getRoles(int userId) {
+        String sql = "select r.name from user_role ur, role r where ur.role_id = r.role_id and ur.user_id = :userId";
+        return jdbcTemplate.query(sql, Map.of("userId", userId), (rs, rowNum) -> {
+            return rs.getString(1);
+        });
     }
 }
